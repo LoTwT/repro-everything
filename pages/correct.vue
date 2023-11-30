@@ -5,5 +5,5 @@ definePageMeta({
 </script>
 
 <template>
-  <div>correct-page</div>
+  <div>inner-correct-page</div>
 </template>

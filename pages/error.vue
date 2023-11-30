@@ -6,5 +6,5 @@ definePageMeta({
 
 
 <template>
-  <div>error-page</div>
+  <div>innner-error-page</div>
 </template>
