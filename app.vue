@@ -1,5 +1,5 @@
 <template>
-  <div>
-    repro-everything
-  </div>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>
