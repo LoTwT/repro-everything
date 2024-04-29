@@ -1,29 +1,22 @@
 import "@unocss/reset/tailwind.css"
-import CustomCamera, { CustomCameraRef } from "./components/CustomCamera"
-import { useRef, useState } from "react"
+import { useState } from "react"
+import CameraPage from "./pages/CameraPage"
+import AlbumPage from "./pages/AlbumPage"
 
 function App() {
-  const r = useRef<CustomCameraRef>(null)
-  const [imageData, setImageData] = useState("")
+  const [showCamera, setShowCamera] = useState(true)
 
   return (
-    <div>
+    <>
+      <div>Current is {showCamera ? "camera" : "album"}</div>
       <button
         style={{ border: "solid 1px black" }}
-        onClick={() => r.current?.switchCamera()}
+        onClick={() => setShowCamera((v) => !v)}
       >
-        switchCamera
+        change camera / album
       </button>
-      <button
-        style={{ border: "solid 1px black", marginLeft: "4px" }}
-        onClick={() => setImageData(r.current!.snapshot())}
-      >
-        snapshot
-      </button>
-
-      <CustomCamera ref={r} />
-      <img src={imageData} alt="camera snapshot" />
-    </div>
+      {showCamera ? <CameraPage /> : <AlbumPage />}
+    </>
   )
 }
 
