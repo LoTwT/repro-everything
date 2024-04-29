@@ -54,7 +54,7 @@ const Album = () => {
           }}
           accept="image/*"
           onClick={() => console.log("from-image")}
-          capture={false}
+          capture={undefined}
         />
       </div>
       <div>
@@ -83,6 +83,19 @@ const Album = () => {
             })
           }}
           onClick={() => console.log("from-no-accept")}
+        />
+      </div>
+      <div>
+        "png-jpeg"
+        <input
+          type="file"
+          name="input-png-jpeg"
+          onChange={(e) => {
+            Array.from(e.target.files || []).forEach((f) => {
+              console.log(f.name, f.type)
+            })
+          }}
+          onClick={() => console.log("from-png-jpeg")}
           capture={false}
         />
       </div>
