@@ -3,7 +3,7 @@ import { useRef } from "react"
 const Album = () => {
   const inputEl = useRef<HTMLInputElement>()
 
-  function openAlbum  ()  {
+  function openAlbum() {
     // 校验是否支持 File API
     if (window.File && window.FileReader && window.FileList && window.Blob) {
       if (!inputEl.current) inputEl.current = document.createElement("input")
@@ -31,14 +31,32 @@ const Album = () => {
     console.log("image =>", file.name)
   }
 
-  return <div>
-    <button style={{ border: "solid 1px black" }} onClick={() => openAlbum()}>open album</button>
-    <input type="file" name="input-file" onChange={(e) => {
-      Array.from(e.target.files || []).forEach(f => {
-        console.log(f.name, f.type)
-      })
-    }}  accept="image/*" />
-  </div>
+  return (
+    <div>
+      <button
+        style={{ border: "solid 1px black" }}
+        onClick={() => {
+          console.log("from-button")
+          openAlbum()
+        }}
+      >
+        open album
+      </button>
+      <div>
+        <input
+          type="file"
+          name="input-file"
+          onChange={(e) => {
+            Array.from(e.target.files || []).forEach((f) => {
+              console.log(f.name, f.type)
+            })
+          }}
+          accept="image/*"
+          onClick={() => console.log("from-input")}
+        />
+      </div>
+    </div>
+  )
 }
 
 export default Album
