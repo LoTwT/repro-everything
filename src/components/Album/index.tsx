@@ -43,16 +43,46 @@ const Album = () => {
         open album
       </button>
       <div>
+        "image/*"
         <input
           type="file"
-          name="input-file"
+          name="input-image"
           onChange={(e) => {
             Array.from(e.target.files || []).forEach((f) => {
               console.log(f.name, f.type)
             })
           }}
           accept="image/*"
-          onClick={() => console.log("from-input")}
+          onClick={() => console.log("from-image")}
+          capture={false}
+        />
+      </div>
+      <div>
+        "video/*"
+        <input
+          type="file"
+          name="input-video"
+          onChange={(e) => {
+            Array.from(e.target.files || []).forEach((f) => {
+              console.log(f.name, f.type)
+            })
+          }}
+          accept="video/*"
+          onClick={() => console.log("from-video")}
+          capture={false}
+        />
+      </div>
+      <div>
+        "no-accept"
+        <input
+          type="file"
+          name="input-no-accept"
+          onChange={(e) => {
+            Array.from(e.target.files || []).forEach((f) => {
+              console.log(f.name, f.type)
+            })
+          }}
+          onClick={() => console.log("from-no-accept")}
           capture={false}
         />
       </div>
