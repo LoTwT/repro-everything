@@ -10,7 +10,7 @@ const Album = () => {
 
       inputEl.current.type = "file"
       // 限制只能选择文件
-      inputEl.current.accept = "images/*"
+      inputEl.current.accept = "image/*"
       inputEl.current.addEventListener("change", handleImages, false)
       inputEl.current.click()
     } else {
@@ -33,6 +33,11 @@ const Album = () => {
 
   return <div>
     <button style={{ border: "solid 1px black" }} onClick={() => openAlbum()}>open album</button>
+    <input type="file" name="input-file" onChange={(e) => {
+      Array.from(e.target.files || []).forEach(f => {
+        console.log(f.name, f.type)
+      })
+    }}  accept="image/*" />
   </div>
 }
 
