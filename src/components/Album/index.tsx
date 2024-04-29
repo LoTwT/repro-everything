@@ -10,8 +10,7 @@ const Album = () => {
 
       inputEl.current.type = "file"
       // 限制只能选择文件
-      inputEl.current.accept = "image/*"
-
+      // inputEl.current.accept = "image/*"
       inputEl.current.addEventListener("change", handleImages, false)
       inputEl.current.click()
     } else {
