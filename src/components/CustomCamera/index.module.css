@@ -1,0 +1,17 @@
+.custom-camera {
+  position: relative;
+  width: fit-content;
+}
+
+.video {
+  /* width: 100%; */
+}
+
+.frame {
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  right: 30px;
+  bottom: 30px;
+  border: 2px dashed #fff;
+}
