@@ -11,6 +11,7 @@ const Album = () => {
       inputEl.current.type = "file"
       // 限制只能选择文件
       inputEl.current.accept = "image/*"
+
       inputEl.current.addEventListener("change", handleImages, false)
       inputEl.current.click()
     } else {
@@ -42,7 +43,7 @@ const Album = () => {
       >
         open album
       </button>
-      {/* <div>
+      <div>
         <input
           type="file"
           name="input-file"
@@ -53,8 +54,9 @@ const Album = () => {
           }}
           accept="image/*"
           onClick={() => console.log("from-input")}
+          capture={false}
         />
-      </div> */}
+      </div>
     </div>
   )
 }
