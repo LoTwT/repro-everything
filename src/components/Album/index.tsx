@@ -42,7 +42,7 @@ const Album = () => {
       >
         open album
       </button>
-      <div>
+      {/* <div>
         <input
           type="file"
           name="input-file"
@@ -54,7 +54,7 @@ const Album = () => {
           accept="image/*"
           onClick={() => console.log("from-input")}
         />
-      </div>
+      </div> */}
     </div>
   )
 }
