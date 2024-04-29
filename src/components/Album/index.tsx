@@ -10,7 +10,7 @@ const Album = () => {
 
       inputEl.current.type = "file"
       // 限制只能选择文件
-      // inputEl.current.accept = "image/*"
+      inputEl.current.accept = "image/*"
       inputEl.current.addEventListener("change", handleImages, false)
       inputEl.current.click()
     } else {
@@ -26,9 +26,15 @@ const Album = () => {
     }
   }
 
-  // @ts-expect-error todo
-  function handleImage(file) {
-    console.log("image =>", file.name)
+  const imgRef = useRef<HTMLImageElement>(null)
+
+  function handleImage(file: File) {
+    const reader = new FileReader()
+    reader.onload = function (e) {
+      if (e.target?.result) imgRef.current!.src = e.target.result.toString()
+    }
+
+    reader.readAsDataURL(file)
   }
 
   return (
@@ -36,69 +42,12 @@ const Album = () => {
       <button
         style={{ border: "solid 1px black" }}
         onClick={() => {
-          console.log("from-button")
           openAlbum()
         }}
       >
         open album
       </button>
-      <div>
-        "image/*"
-        <input
-          type="file"
-          name="input-image"
-          onChange={(e) => {
-            Array.from(e.target.files || []).forEach((f) => {
-              console.log(f.name, f.type)
-            })
-          }}
-          accept="image/*"
-          onClick={() => console.log("from-image")}
-          capture={undefined}
-        />
-      </div>
-      <div>
-        "video/*"
-        <input
-          type="file"
-          name="input-video"
-          onChange={(e) => {
-            Array.from(e.target.files || []).forEach((f) => {
-              console.log(f.name, f.type)
-            })
-          }}
-          accept="video/*"
-          onClick={() => console.log("from-video")}
-          capture={false}
-        />
-      </div>
-      <div>
-        "no-accept"
-        <input
-          type="file"
-          name="input-no-accept"
-          onChange={(e) => {
-            Array.from(e.target.files || []).forEach((f) => {
-              console.log(f.name, f.type)
-            })
-          }}
-          onClick={() => console.log("from-no-accept")}
-        />
-      </div>
-      <div>
-        "png-jpeg"
-        <input
-          type="file"
-          name="input-png-jpeg"
-          onChange={(e) => {
-            Array.from(e.target.files || []).forEach((f) => {
-              console.log(f.name, f.type)
-            })
-          }}
-          onClick={() => console.log("from-png-jpeg")}
-          capture={false}
-        />
-      </div>
+      <img ref={imgRef} alt="preview-image" />
     </div>
   )
 }
