@@ -164,7 +164,15 @@ const CustomCamera = forwardRef<CustomCameraRef, CustomCameraProps>(
 
     return (
       <div className={styles["custom-camera"]}>
-        <video className={styles.video} ref={videoRef} autoPlay={true}></video>
+        <video
+          className={styles.video}
+          ref={videoRef}
+          autoPlay={true}
+          playsInline={true}
+          muted={true}
+          controls={false}
+          disablePictureInPicture={true}
+        ></video>
         <div ref={frameRef} className={cx(styles.frame, frame?.className)} />
       </div>
     )
