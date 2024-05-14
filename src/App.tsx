@@ -19,7 +19,7 @@ async function check() {
       video: true
     })
   } catch (error) {
-    console.log("->", error)
+    console.log("->", error.name, error.message)
   }
 }
 
