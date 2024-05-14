@@ -12,7 +12,13 @@ async function check() {
 
   const devices = await navigator.mediaDevices.enumerateDevices()
   const cameras = devices.filter(d => d.kind === 'videoinput')
-  console.log('=>', cameras)
+  console.log('=>', cameras.length)
+
+  try {
+    await navigator.mediaDevices.getUserMedia()
+  } catch (error) {
+    console.log("->", error)
+  }
 }
 
 function App() {
