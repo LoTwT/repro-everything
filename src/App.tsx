@@ -15,7 +15,9 @@ async function check() {
   console.log('=>', cameras.length)
 
   try {
-    await navigator.mediaDevices.getUserMedia()
+    await navigator.mediaDevices.getUserMedia({
+      video: true
+    })
   } catch (error) {
     console.log("->", error)
   }
