@@ -11,7 +11,14 @@ const Album = () => {
       inputEl.current.type = "file"
       // 限制只能选择文件
       inputEl.current.accept = "image/*"
-      inputEl.current.addEventListener("change", handleImages, false)
+      inputEl.current.addEventListener("change", (e) => {
+        try {
+          handleImages(e)
+        } catch (error) {
+          // @ts-expect-error 1234
+          console.log("=-=>", error.name, error.message)
+        }
+      }, false)
       inputEl.current.click()
     } else {
       console.log("不支持 File API")
