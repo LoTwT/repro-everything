@@ -19,6 +19,7 @@ async function check() {
       video: true
     })
   } catch (error) {
+    // @ts-expect-error error
     console.log("->", error.name, error.message)
   }
 }
