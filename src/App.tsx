@@ -1,10 +1,25 @@
 import "@unocss/reset/tailwind.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import CameraPage from "./pages/CameraPage"
 import AlbumPage from "./pages/AlbumPage"
 
+async function check() {
+  if (!navigator.mediaDevices) {
+    console.log('???')
+    return
+  }
+
+  const devices = await navigator.mediaDevices.enumerateDevices()
+  const cameras = devices.filter(d => d.kind === 'videoinput')
+  console.log('=>', cameras)
+}
+
 function App() {
   const [showCamera, setShowCamera] = useState(true)
+
+  useEffect(() => {
+    check()
+  }, [])
 
   return (
     <>
