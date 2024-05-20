@@ -2,38 +2,38 @@ import "@unocss/reset/tailwind.css"
 // import { useEffect, useState } from "react"
 // import CameraPage from "./pages/CameraPage"
 import AlbumPage from "./pages/AlbumPage"
-import { useEffect } from "react"
+// import { useEffect } from "react"
 
-async function check() {
-  if (!navigator.mediaDevices) {
-    console.log('???')
-    return
-  }
+// async function check() {
+//   if (!navigator.mediaDevices) {
+//     console.log('???')
+//     return
+//   }
 
-  const devices = await navigator.mediaDevices.enumerateDevices()
-  const cameras = devices.filter(d => d.kind === 'videoinput')
-  console.log('=>', cameras.length)
+//   const devices = await navigator.mediaDevices.enumerateDevices()
+//   const cameras = devices.filter(d => d.kind === 'videoinput')
+//   console.log('=>', cameras.length)
 
-  try {
-    await navigator.mediaDevices.getUserMedia({
-      video: true
-    })
-  } catch (error) {
-    // @ts-expect-error error
-    console.log("->", error.name, error.message)
-  }
-}
+//   try {
+//     await navigator.mediaDevices.getUserMedia({
+//       video: true
+//     })
+//   } catch (error) {
+//     // @ts-expect-error error
+//     console.log("->", error.name, error.message)
+//   }
+// }
 
 function App() {
   // const [showCamera, setShowCamera] = useState(true)
 
-  useEffect(() => {
-    try {
-      check()
-    } catch (error) {
-      console.log("catched", error)
-    }
-  }, [])
+  // useEffect(() => {
+  //   try {
+  //     check()
+  //   } catch (error) {
+  //     console.log("catched", error)
+  //   }
+  // }, [])
 
   return (
     <>
