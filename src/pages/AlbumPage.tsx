@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import Album from "../components/Album"
 
+import { useRef } from "react"
+
 // function isMobileIOS() {
 //   const userAgent = navigator.userAgent || navigator.vendor
 
@@ -8,82 +10,64 @@
 //   return /iPad|iPhone|iPod/.test(userAgent)
 // }
 
-async function check() {
-  if (!navigator || !navigator.mediaDevices) {
-    console.log("no navigator or mediaDevices")
-    throw new Error("no navigator or mediaDevices error")
-  }
-
-  try {
-    // @ts-expect-error type error
-    const status = await navigator.permissions.query({ name: "camera" })
-    console.log("status =>", status.name, status.state)
-  } catch (error: any) {
-    console.log("status error =>", error.name, error.message)
-    throw error
-  }
-
-  console.log("???")
-
-  try {
-    const s = await navigator.mediaDevices.getUserMedia({
-      video: true,
-      audio: false,
-    })
-    s.getTracks().forEach((t) => t.stop())
-    console.log("----")
-  } catch (error: any) {
-    console.log("get-user =>", error.name, error.message)
-    throw error
-  }
-}
-
 const AlbumPage = () => {
   function handleImageChange() {
     console.log("handle image change")
   }
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  async function handleLabelClick(
-  ) {
-    try {
-      await check()
-    } catch (error: any) {
-      // e.preventDefault()
-      console.log("handle-label-click", error.name, error.message)
-    }
+  async function check() {
+    console.log(!!navigator.permissions)
+    if (!navigator || !navigator.permissions) return false
+
+    // @ts-expect-error type error
+    const status = await navigator.permissions.query({ name: "camera" })
+    console.log(status.name, status.state)
+    return status.state !== "denied"
+  }
+
+  // useEffect(() => {
+  //   foo()
+  // }, [])
+
+  async function foo() {
+    const s = await navigator.mediaDevices.getUserMedia({
+      video: true,
+      audio: false
+    })
+    s.getTracks().forEach(t => t.stop())
+    console.log("get-user-media success")
   }
 
   return (
     // <Album />
-    <div style={{ display: "flex", flexDirection: "column" }}>
-      <label htmlFor="scan" onClick={handleLabelClick} >
-        scan label
+    <div>
+      <label
+        style={{ marginBottom: "50px", display: "block" }}
+        className="bg-ppcn-blue-500 w-full h-full py-4 rounded-xl flex justify-center items-center cursor-pointer"
+        onClick={async () => {
+          try {
+            const has = await check()
+            await foo()
+            if (has) inputRef.current?.click()
+          } catch (error) {
+            console.error("无法启用相机或相册，请在设置中授予相应权限")
+            // @ts-expect-error aaa
+            console.log(error.name, error.message)
+          }
+        }}
+      >
+        <span className="ml-2 web-caption-large-regular text-white">
+          扫描名片 快速录入信息
+        </span>
       </label>
       <input
-        id="scan"
+        ref={inputRef}
         type="file"
         accept="image/*"
-        style={{ appearance: "none", marginTop: "50px" }}
-        onChange={(e) => {
-          handleImageChange()
-          console.log(e.target.files?.length)
-          e.target.onerror = () => {
-            console.log("onchange target error")
-          }
-          e.currentTarget.onerror = () => {
-            console.log("onchange currentTarget error")
-
-          }
-        }}
-        onError={(e) => {
-          console.log("input error", e)
-        }}
-        onErrorCapture={() => {
-          console.log("error capture")
-        }}
-        onChangeCapture={() => {
-          console.log("change capture")
-        }}
+        id="scan"
+        onChange={handleImageChange}
+        className="sr-only"
       />
     </div>
   )
