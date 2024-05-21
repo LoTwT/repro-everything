@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import Album from "../components/Album"
 
-import { useRef } from "react"
+import { useEffect, useRef } from "react"
 
 // function isMobileIOS() {
 //   const userAgent = navigator.userAgent || navigator.vendor
@@ -10,11 +10,20 @@ import { useRef } from "react"
 //   return /iPad|iPhone|iPod/.test(userAgent)
 // }
 
+function isWeChatBrowser() {
+  const userAgent = navigator.userAgent.toLowerCase()
+  return userAgent.includes('micromessenger')
+}
+
 const AlbumPage = () => {
   function handleImageChange() {
     console.log("handle image change")
   }
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    console.log("isInWeChat", isWeChatBrowser())
+  }, [])
 
   async function check() {
     console.log("permission =>",!!navigator.permissions)
