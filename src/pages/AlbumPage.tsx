@@ -12,7 +12,7 @@ import { useEffect, useRef } from "react"
 
 function isWeChatBrowser() {
   const userAgent = navigator.userAgent.toLowerCase()
-  return userAgent.includes('micromessenger')
+  return userAgent.includes("micromessenger")
 }
 
 const AlbumPage = () => {
@@ -26,21 +26,21 @@ const AlbumPage = () => {
   }, [])
 
   async function check() {
-    console.log("permission =>",!!navigator.permissions)
+    console.log("permission =>", !!navigator.permissions)
     if (!navigator.permissions) return true
 
     // @ts-expect-error type error
     const status = await navigator.permissions.query({ name: "camera" })
-    console.log("status =>",status.name, status.state)
+    console.log("status =>", status.name, status.state)
     return status.state
   }
 
   async function foo() {
     const s = await navigator.mediaDevices.getUserMedia({
       video: true,
-      audio: false
+      audio: false,
     })
-    s.getTracks().forEach(t => t.stop())
+    s.getTracks().forEach((t) => t.stop())
     console.log("get-user-media success")
   }
 
@@ -59,9 +59,7 @@ const AlbumPage = () => {
             } else if (has === "prompt") {
               console.log("prompt-permission")
               await foo()
-              setTimeout(() => {
-                inputRef.current?.click()
-              }, 1000)
+              inputRef.current?.click()
             } else {
               console.log("deny-permission")
               throw new Error("deny-permission")
@@ -74,7 +72,7 @@ const AlbumPage = () => {
         }}
       >
         <span className="ml-2 web-caption-large-regular text-white">
-          扫描名片 快速录入信息11
+          扫描名片 快速录入信息2
         </span>
       </label>
       <input
@@ -90,13 +88,16 @@ const AlbumPage = () => {
       />
 
       <button
-      style={{
-        marginTop: "50px"
-      }}
-       onClick={() => {
-        console.log("btn-click")
-        inputRef.current?.click()
-      }}>btn</button>
+        style={{
+          marginTop: "50px",
+        }}
+        onClick={() => {
+          console.log("btn-click")
+          inputRef.current?.click()
+        }}
+      >
+        btn
+      </button>
     </div>
   )
 }
