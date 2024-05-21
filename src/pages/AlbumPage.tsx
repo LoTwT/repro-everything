@@ -58,6 +58,7 @@ const AlbumPage = () => {
               inputRef.current?.click()
             } else if (has === "prompt") {
               console.log("prompt-permission")
+              console.log('->', !!navigator.mediaDevices, !!navigator.mediaDevices.getUserMedia)
               await foo()
               inputRef.current?.click()
             } else {
@@ -72,7 +73,7 @@ const AlbumPage = () => {
         }}
       >
         <span className="ml-2 web-caption-large-regular text-white">
-          扫描名片 快速录入信息2
+          扫描名片 快速录入信息3
         </span>
       </label>
       <input
