@@ -31,13 +31,9 @@ const AlbumPage = () => {
 
     // @ts-expect-error type error
     const status = await navigator.permissions.query({ name: "camera" })
-    console.log(status.name, status.state)
-    return status.state !== "denied"
+    console.log("status =>",status.name, status.state)
+    return status.state
   }
-
-  // useEffect(() => {
-  //   foo()
-  // }, [])
 
   async function foo() {
     const s = await navigator.mediaDevices.getUserMedia({
@@ -49,18 +45,27 @@ const AlbumPage = () => {
   }
 
   return (
-    // <Album />
     <div>
       <label
         style={{ marginBottom: "50px", display: "block" }}
-        className="bg-ppcn-blue-500 w-full h-full py-4 rounded-xl flex justify-center items-center cursor-pointer"
         onClick={async (e) => {
           e.preventDefault()
           try {
             const has = await check()
-            console.log("has =>",has)
-            await foo()
-            if (has) inputRef.current?.click()
+
+            if (has === true || has === "granted") {
+              console.log("has-permission")
+              inputRef.current?.click()
+            } else if (has === "prompt") {
+              console.log("prompt-permission")
+              await foo()
+              setTimeout(() => {
+                inputRef.current?.click()
+              }, 1000)
+            } else {
+              console.log("deny-permission")
+              throw new Error("deny-permission")
+            }
           } catch (error) {
             console.error("无法启用相机或相册，请在设置中授予相应权限")
             // @ts-expect-error aaa
@@ -69,7 +74,7 @@ const AlbumPage = () => {
         }}
       >
         <span className="ml-2 web-caption-large-regular text-white">
-          扫描名片 快速录入信息1
+          扫描名片 快速录入信息11
         </span>
       </label>
       <input
@@ -83,6 +88,15 @@ const AlbumPage = () => {
         onChange={handleImageChange}
         className="sr-only"
       />
+
+      <button
+      style={{
+        marginTop: "50px"
+      }}
+       onClick={() => {
+        console.log("btn-click")
+        inputRef.current?.click()
+      }}>btn</button>
     </div>
   )
 }
