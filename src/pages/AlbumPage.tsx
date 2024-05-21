@@ -17,8 +17,8 @@ const AlbumPage = () => {
   const inputRef = useRef<HTMLInputElement>(null)
 
   async function check() {
-    console.log(!!navigator.permissions)
-    if (!navigator || !navigator.permissions) return false
+    console.log("permission =>",!!navigator.permissions)
+    if (!navigator.permissions) return true
 
     // @ts-expect-error type error
     const status = await navigator.permissions.query({ name: "camera" })
