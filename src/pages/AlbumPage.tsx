@@ -69,7 +69,7 @@ const AlbumPage = () => {
         }}
       >
         <span className="ml-2 web-caption-large-regular text-white">
-          扫描名片 快速录入信息
+          扫描名片 快速录入信息1
         </span>
       </label>
       <input
