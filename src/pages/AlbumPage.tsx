@@ -54,9 +54,11 @@ const AlbumPage = () => {
       <label
         style={{ marginBottom: "50px", display: "block" }}
         className="bg-ppcn-blue-500 w-full h-full py-4 rounded-xl flex justify-center items-center cursor-pointer"
-        onClick={async () => {
+        onClick={async (e) => {
+          e.preventDefault()
           try {
             const has = await check()
+            console.log("has =>",has)
             await foo()
             if (has) inputRef.current?.click()
           } catch (error) {
@@ -71,6 +73,9 @@ const AlbumPage = () => {
         </span>
       </label>
       <input
+        onClick={() => {
+          console.log("input-click")
+        }}
         ref={inputRef}
         type="file"
         accept="image/*"
